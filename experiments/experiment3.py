@@ -1,3 +1,4 @@
+# todo list locally in memory
 prompt = "Your options are: Show, Add, Edit, Complete, Exit: "
 cycle = True
 usrList = []
