@@ -5,7 +5,8 @@ cycle = True
 while cycle:
     usrInput = input(prompt)
     usrInput = usrInput.strip()
-    if "show" in usrInput:
+    # if "show" in usrInput:
+    if usrInput.startswith("show"):
         with open('todos.txt', 'r') as todoFile:
             currentList = todoFile.readlines()
         filteredList = [item.strip("\n") for item in currentList]
@@ -13,7 +14,8 @@ while cycle:
             print(f"{index + 1}) {item}")
         if len(currentList) <= 0:
             print("Empty list")
-    elif "add" in usrInput or "new" in usrInput:
+    # elif "add" in usrInput or "new" in usrInput:
+    elif usrInput.startswith("add") or usrInput.startswith("new"):
         if len(usrInput) > 4:
             addItem = usrInput[4:]
             addItemWithNewLine = addItem + "\n"
@@ -32,32 +34,38 @@ while cycle:
             todoFile = open('todos.txt', 'w')
             todoFile.writelines(currentList)
             todoFile.close()
-    elif "edit" in usrInput:
+    # elif "edit" in usrInput:
+    elif usrInput.startswith("edit"):
         if len(usrInput) > 5:
-            editIndex = int(usrInput[5:]) - 1
-            with open('todos.txt', 'r') as todoFile:
-                currentList = todoFile.readlines()
-                currentListLength = len(currentList)
-            if (editIndex + 1) > currentListLength or editIndex < 1:
-                print(f"Index out of bounds, {editIndex + 1} needs to be greater than 0 and less than {currentListLength + 1}")
-            else:
-                newItem = input("New item name: ") + "\n"
-                currentList[editIndex] = newItem
-                with open('todos.txt', 'w') as todoFile:
-                    todoFile.writelines(currentList)
-                print(f"Updated item #{editIndex + 1} to {newItem[0:-1]}")
-        else:
-            with open('todos.txt', 'r') as todoFile:
-                currentList = todoFile.readlines()
+            try:
+                editIndex = int(usrInput[5:]) - 1
+                with open('todos.txt', 'r') as todoFile:
+                    currentList = todoFile.readlines()
+                    currentListLength = len(currentList)
+                if (editIndex + 1) > currentListLength or editIndex < 1:
+                    print(f"Index out of bounds, {editIndex + 1} needs to be 1 to {currentListLength}")
+                else:
+                    newItem = input("New item name: ") + "\n"
+                    currentList[editIndex] = newItem
+                    with open('todos.txt', 'w') as todoFile:
+                        todoFile.writelines(currentList)
+                    print(f"Updated item #{editIndex + 1} to {newItem[0:-1]}")
+            except ValueError:
+                print("An index number is supposed to follow edit")
+                continue
+        # else:
+        #     with open('todos.txt', 'r') as todoFile:
+        #         currentList = todoFile.readlines()
+        #
+        #     editIndex = int(input("Edit index number: ")) - 1
+        #     newItem = input("New item name: ") + "\n"
+        #     currentList[editIndex] = newItem
+        #     # todoFile = open('todos.txt', 'w')
+        #     with open('todos.txt', 'w') as todoFile:
+        #         todoFile.writelines(currentList)
 
-            editIndex = int(input("Edit index number: ")) - 1
-            newItem = input("New item name: ") + "\n"
-            currentList[editIndex] = newItem
-            # todoFile = open('todos.txt', 'w')
-            with open('todos.txt', 'w') as todoFile:
-                todoFile.writelines(currentList)
-
-    elif "complete" in usrInput:
+    # elif "complete" in usrInput:
+    elif usrInput.startswith("complete"):
         # todoFile = open('todos.txt', 'r')
         with open('todos.txt', 'r') as todoFile:
             currentList = todoFile.readlines()
@@ -76,7 +84,8 @@ while cycle:
         with open('todos.txt', 'w') as todoFile:
             todoFile.writelines(currentList)
         # todoFile.close()
-    elif "exit" in usrInput:
+    # elif "exit" in usrInput:
+    elif usrInput.startswith("exit"):
         cycle = False
     else:
         print(f"<{usrInput}> is not a valid command")
