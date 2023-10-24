@@ -10,7 +10,7 @@ todoListPrompt = "To-do list"
 label = sg.Text(prompt)
 labelList = sg.Text(todoListPrompt)
 list_box = sg.Listbox(values=currentList, key="todos",
-                      enable_events=True, size=[45,10])
+                      enable_events=True, size=[50,10])
 input_box = sg.InputText(tooltip=prompt, key="todo")
 add_button = sg.Button("Add")
 clear_button = sg.Button("X")
