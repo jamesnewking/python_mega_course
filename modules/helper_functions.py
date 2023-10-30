@@ -1,6 +1,4 @@
 FILEPATH = "todos.txt"
-
-
 def get_current_list(filepath=FILEPATH):
     """ Get list from text file"""
     with open(filepath, 'r') as todo_file:
